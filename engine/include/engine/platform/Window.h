@@ -52,6 +52,10 @@ public:
 private:
     SDL_Window*   m_window   = nullptr;
     SDL_Renderer* m_renderer = nullptr;
+
+	bool sdl_videoInitialized = false; // Track if SDL video subsystem was initialized
+
+
 };
 
 } // namespace eng

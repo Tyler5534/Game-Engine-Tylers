@@ -19,8 +19,17 @@ int main(int argc, char** argv) {
     // TODO(week1): Initialize a SDL3 Window. Check if it IsValid(). Bail with a message
     // and a non-zero exit code if it failed.
 
+    eng::Window window("Rinku Sutaato!", 1280, 720);
+
+    if (!window.IsValid())
+    {
+		std::print(stderr,"Failed to create window. Exiting.\n");
+		return 1; // Non-zero exit code indicates failure
+    }
+
     bool running = true;
-    while (running) {
+    while (running) 
+    {
         // TODO(week1): drain the SDL event queue with SDL_PollEvent.
 		//   Set running = false on SDL_EVENT_QUIT or SDL_EVENT_WINDOW_CLOSE_REQUESTED.
 		//   Do nothing for any other event type.
@@ -30,6 +39,26 @@ int main(int argc, char** argv) {
         // lag.
 
         // TODO(week1): clear to a colour of your choosing, then present.
+
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+            case SDL_EVENT_QUIT:
+            case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+                running = false;
+                break;
+            default:
+				break; // Ignore other events // do nothing
+            }
+        }
+
+        window.Clear(120, 29, 255); 
+
+        window.Present();
+
+
     }
 
     std::printf("Clean exit.\n");
