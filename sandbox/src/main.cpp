@@ -9,9 +9,26 @@
 // =============================================================================
 
 #include <engine/platform/Window.h>
-
 #include <SDL3/SDL.h>
+
+//define _CRTDBG_MAP_ALLOC
 #include <print>
+
+//int x[100];
+//
+//int main()
+//{
+//#ifdef __SANITIZE_ADDRESS__
+//    std::print("MSVC AddressSanitizer enabled");
+//#else
+//    std::print("MSVC AddressSanitizer not enabled");
+//#endif
+//
+//
+//    std::print("Hello!\n");
+//    x[100] = 5; // Boom!
+//    return 0;
+//}
 
 int main(int argc, char** argv) {
     (void)argc; (void)argv;   // Week 1 stretch goal 3 gives these a purpose.
@@ -21,15 +38,14 @@ int main(int argc, char** argv) {
 
     eng::Window window("Rinku Sutaato!", 1280, 720);
 
-    if (!window.IsValid())
+    if(!window.IsValid())
     {
-		std::print(stderr,"Failed to create window. Exiting.\n");
-		return 1; // Non-zero exit code indicates failure
+        std::print(stderr, "Failed to create window\n");
+        return 1;
     }
 
     bool running = true;
-    while (running) 
-    {
+    while (running) {
         // TODO(week1): drain the SDL event queue with SDL_PollEvent.
 		//   Set running = false on SDL_EVENT_QUIT or SDL_EVENT_WINDOW_CLOSE_REQUESTED.
 		//   Do nothing for any other event type.
@@ -41,20 +57,21 @@ int main(int argc, char** argv) {
         // TODO(week1): clear to a colour of your choosing, then present.
 
         SDL_Event event;
-        while (SDL_PollEvent(&event))
+        while (SDL_PollEvent(&event)) 
         {
-            switch (event.type)
+            switch (event.type) 
             {
-            case SDL_EVENT_QUIT:
-            case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
-                running = false;
-                break;
-            default:
-				break; // Ignore other events // do nothing
+			    case SDL_EVENT_QUIT:
+			    case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+				    running = false;
+				    break;
+                default:
+					// Ignore other events // Do nothing
+                    break;
             }
         }
 
-        window.Clear(120, 29, 255); 
+		window.Clear(200, 120, 255); 
 
         window.Present();
 
